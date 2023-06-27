@@ -481,6 +481,205 @@ int main()
 
 	int order_num;
 	cin >> order_num;
+	
+	while (order_num != 0)
+	{
+		if (order_num == 1)
+		{
+			if (current_user.is_logged)
+			{
+				int id;
+				string name;
+				double price;
+				int quantity;
+				cout << "Enter ID : ";
+				cin >> id;
+				cout << "Enter product name : ";
+				cin >> name;
+				cout << "Enter product quantity : ";
+				cin >> quantity;
+				cout << "Enter product price in " << invent.invent_curr << " : ";
+				cin >> price;
 
+				product k_product(id, name, quantity, price);
+				invent.add_product(k_product);
+			}
+			else
+				cout << "The current user has not logged in or registered yet." << endl;
+		}
+		else if (order_num == 2)
+		{
+			if (current_user.is_logged)
+			{
+				int id;
+				cout << "Enter product id : ";
+				cin >> id;
+				invent.remove_product(id);
+			}
+			else
+				cout << "The current user has not logged in or registered yet." << endl;
+		}
+		else if (order_num == 3)
+		{
+			int id;
+			cout << "Enter product id : ";
+			cin >> id;
+			product* product = invent.find_product(id);
+			if (product) {
+				cout << "Name : " << product->get_name() << endl;
+				cout << "Quantity : " << product->get_quantity() << endl;
+				cout << "Price in " << invent.invent_curr << " : " << product->get_price() << endl;
+				cout << "-----------------------------------------------------------" << endl;
+			}
+			else {
+				cout << "Product not found." << endl;
+				cout << "-----------------------------------------------------------" << endl;
+			}
+		}
+		else if (order_num == 4)
+		{
+			if (current_user.is_logged)
+			{
+				int id;
+				string name;
+				double price;
+				int quantity;
+				cout << "Enter the product id : ";
+				cin >> id;
+				cout << "Enter new product name : ";
+				cin >> name;
+				cout << "Enter new product quantity: ";
+				cin >> quantity;
+				cout << "Enter new product price in " << invent.invent_curr << " : ";
+				cin >> price;
+				if (invent.update_product(id, name, quantity, price))
+				{
+					cout << "Product updated successfully." << endl;
+					cout << "-----------------------------------------------------------" << endl;
+				}
+			}
+			else
+				cout << "The current user has not logged in or registered yet." << endl;
+		}
+		else if (order_num == 5)
+		{
+			invent.print_products();
+		}
+		else if (order_num == 6)
+		{
+			string filename;
+			cout << "Enter the file name to save : ";
+			cin >> filename;
+			filename.append(".csv");
+			invent.save_inventory_in_file(filename);
+			cout << "Inventory saved to file." << endl;
+			cout << "-----------------------------------------------------------" << endl;
+		}
+		else if (order_num == 7)
+		{
+			if (current_user.is_logged)
+			{
+				string filename;
+				cout << "Enter the file name to load : ";
+				cin >> filename;
+				filename.append(".csv");
+				invent.load_inventory_from_file(filename);
+			}
+			else
+				cout << "The current user has not logged in or registered yet." << endl;
+		}
+		else if (order_num == 8)
+		{
+			if (current_user.is_logged)
+			{
+				int ps_num;
+				cout << "Enter the number of products in the factor : ";
+				cin >> ps_num;
+				int* ps_id = new int[ps_num];
+				int* ps_quantity = new int[ps_num];
+				for (int i = 0; i < ps_num; i++)
+				{
+					cout << "Enter the id of product in the factor : ";
+					cin >> ps_id[i];
+					cout << "Enter the quantity of product in the factor : ";
+					cin >> ps_quantity[i];
+				}
+				factor fact(ps_id, ps_quantity, ps_num);
+				fact.issue_factor(invent);
+			}
+			else
+				cout << "The current user has not logged in or registered yet." << endl;
+		}
+		else if (order_num == 9)
+		{
+			if (current_user.is_logged == false)
+			{
+				string username;
+				string password;
+				cout << "Enter username : ";
+				cin >> username;
+				cout << "Enter password : ";
+				cin >> password;
+				current_user.login(username, password);
+			}
+			else
+			{
+				cout << "You are already logged in. Please log out before doing this operation." << endl;
+			}
+		}
+		else if (order_num == 10)
+		{
+			if (current_user.is_logged == false)
+			{
+				current_user.registration();
+			}
+			else
+			{
+				cout << "You are already logged in. Please log out before doing this operation." << endl;
+			}
+		}
+		else if (order_num == 11)
+		{
+			string new_currency;
+			cout << "Enter the name of the new currency. ( USD for dollar , EUR for euro , GBP for pound ) : ";
+			cin >> new_currency;
+			invent.update_currency(new_currency);
+		}
+		else if (order_num == 12)
+		{
+			if (current_user.is_logged)
+			{
+				string source_curr;
+				string dest_curr;
+				double ratio;
+				cout << "Enter the source currency. ( USD for dollar , EUR for euro , GBP for pound ) : ";
+				cin >> source_curr;
+				cout << "Enter the destination currency. ( USD for dollar , EUR for euro , GBP for pound ) : ";
+				cin >> dest_curr;
+				cout << "Enter the new ratio for source currency to destination currency : ";
+				cin >> ratio;
+				invent.update_curr_ratio(source_curr, dest_curr, ratio);
+			}
+			else
+				cout << "The current user has not logged in or registered yet." << endl;
+		}
+		else if (order_num == 13)
+		{
+			if (current_user.is_logged)
+			{
+				current_user.is_logged = false;
+				cout << "Logout was successful." << endl;
+			}
+			else
+				cout << "You are already logged out. Please log in before doing this operation." << endl;
+		}
+		else
+			cout << "The command was not found." << endl;
+
+		cout << endl << "Choose one of the above options by entering its number : ";
+		cin >> order_num;
+	}
+
+	cout << "The program is finished." << endl;
 	return 0;
 }
