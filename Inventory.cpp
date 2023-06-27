@@ -232,6 +232,18 @@ public:
 			cout << "id is not exist" << endl;
 		}
 	}
+
+	product* find_product(int id)
+	{
+		for (ar p : products)
+		{
+			if (p.get_id() == id)
+			{
+				return &p;
+			}
+		}
+		return nullptr;
+	}
 };
 
 int main()
