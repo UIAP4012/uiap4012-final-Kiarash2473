@@ -295,6 +295,42 @@ public:
 		}
 		file.close();
 	}
+
+	void load_inventory_from_file(string filename)
+	{
+		ifstream file;
+		file.open(filename, ios::in);
+
+		if (file.is_open())
+		{
+			string line;
+			while (getline(file, line))
+			{
+				stringstream ss(line);
+				string id_str, name, price_str, quantity_str;
+				getline(ss, id_str, ',');
+				getline(ss, name, ',');
+				getline(ss, quantity_str, ',');
+				getline(ss, price_str, ',');
+
+				int id = stoi(id_str);
+				int quantity = stoi(quantity_str);
+				double price = stod(price_str);
+
+				product p(id, name, quantity, price);
+				this->add_product(p);
+			}
+
+			file.close();
+			cout << "Inventory loaded from file." << endl;
+			cout << "-----------------------------------------------------------" << endl;
+		}
+		else
+		{
+			cout << "Can not open file " << filename << "." << endl;
+			cout << "-----------------------------------------------------------" << endl;
+		}
+	}
 };
 
 int main()
