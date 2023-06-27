@@ -244,6 +244,28 @@ public:
 		}
 		return nullptr;
 	}
+
+	bool update_product(int id, string name, int quantity, double price)
+	{
+		bool found = false;
+		for (ar p : products)
+		{
+			if (p.get_id() == id)
+			{
+				p.set_name(name);
+				p.set_quantity(quantity);
+				p.set_price(price);
+				found = true;
+				//cout << "the product has been updated successfully." << endl;
+				break;
+			}
+		}
+		if (found == false)
+		{
+			cout << "Id does not exist." << endl;
+		}
+		return found;
+	}
 };
 
 int main()
