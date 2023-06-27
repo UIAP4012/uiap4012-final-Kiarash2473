@@ -333,6 +333,18 @@ public:
 	}
 };
 
+class user_info
+{
+public:
+	string username;
+	string password;
+};
+class users_record
+{
+public:
+	bool is_logged = false;
+};
+
 int main()
 {
 	
