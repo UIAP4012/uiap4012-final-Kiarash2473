@@ -141,7 +141,7 @@ public:
 			cout << "No currency was found with this name." << endl;
 	}
 
-void update_curr_ratio(string from, string to, double ratio)
+	void update_curr_ratio(string from, string to, double ratio)
 	{
 		for (ar x : from)
 			x = tolower(x);
@@ -191,6 +191,26 @@ void update_curr_ratio(string from, string to, double ratio)
 		}
 		else
 			cout << "invalid source currency to update ratio." << endl;
+	}
+
+	void add_product(product product)
+	{
+		bool found = false;
+		for (ar p : products)
+		{
+			if (p.get_id() == product.get_id())
+			{
+				cout << "id is already exist." << endl;
+				found = true;
+				break;
+			}
+		}
+		if (found == false)
+		{
+			products.push_back(product);
+			cout << "Product added successfully." << endl;
+			cout << "-----------------------------------------------------------" << endl;
+		}
 	}
 };
 
