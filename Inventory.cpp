@@ -403,6 +403,29 @@ public:
 	}
 };
 
+class factor
+{
+public:
+	uint64_t factor_id;
+	int products_num;
+	int* products_id;
+	int* products_quantity;
+
+	factor(int* ps_id, int* ps_quantity, int ps_num)
+	{
+		const auto p1 = chrono::system_clock::now();
+		this->factor_id = chrono::duration_cast<chrono::seconds>(p1.time_since_epoch()).count();
+		products_num = ps_num;
+		products_id = new int[products_num];
+		products_quantity = new int[products_num];
+		for (int i = 0; i < ps_num; i++)
+		{
+			this->products_id[i] = ps_id[i];
+			this->products_quantity[i] = ps_quantity[i];
+		}
+	}
+};
+
 int main()
 {
 	
