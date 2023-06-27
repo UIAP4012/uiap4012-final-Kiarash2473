@@ -403,6 +403,56 @@ public:
 	}
 };
 
+class factor
+{
+public:
+	uint64_t factor_id;
+	int products_num;
+	int* products_id;
+	int* products_quantity;
+
+	factor(int* ps_id, int* ps_quantity, int ps_num)
+	{
+		const auto p1 = chrono::system_clock::now();
+		this->factor_id = chrono::duration_cast<chrono::seconds>(p1.time_since_epoch()).count();
+		products_num = ps_num;
+		products_id = new int[products_num];
+		products_quantity = new int[products_num];
+		for (int i = 0; i < ps_num; i++)
+		{
+			this->products_id[i] = ps_id[i];
+			this->products_quantity[i] = ps_quantity[i];
+		}
+	}
+
+	void issue_factor(inventory& invent)
+	{
+		for (int i = 0; i < this->products_num; i++)
+		{
+			product* k_product = invent.find_product(this->products_id[i]);
+			if (k_product == nullptr)
+				cout << "Product with id " << this->products_id[i] << " does not found for issuing factor. Therefore, it was not included in the factor." << endl;
+			else
+			{
+				invent.update_product(this->products_id[i], k_product->get_name(), k_product->get_quantity() - this->products_quantity[i], k_product->get_price());
+				string filename = to_string(this->factor_id);
+				filename.append(".csv");
+				ofstream file;
+				file.open(filename);
+				if (i == 0)
+					file << "factor id,product id,product name,factor quantity,product price\n";
+				file << this->factor_id << "," << this->products_id[i] << "," << k_product->get_name() << "," << this->products_quantity[i] << "," << k_product->get_price() << "\n";
+				file.close();
+
+				ofstream k_file;
+				k_file.open("all factor issued history.txt", ios::out | ios::app);
+				k_file << "factor id : " << this->factor_id << "\tproduct id : " << this->products_id[i] << "\tproduct name : " << k_product->get_name() << "\tfactor quantity : " << this->products_quantity[i] << "\tproduct price : " << k_product->get_price() << endl;
+			}
+		}
+		cout << "your factor has been issued successfully." << endl;
+	}
+};
+
 int main()
 {
 	
