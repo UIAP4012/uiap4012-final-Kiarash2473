@@ -266,6 +266,23 @@ public:
 		}
 		return found;
 	}
+
+	void print_products()
+	{
+		for (ar p : products)
+		{
+			cout << "id : " << p.get_id() << "\t";
+			cout << "name : " << p.get_name() << "\t";
+			cout << "quantity : " << p.get_quantity() << "\t";
+			if (this->invent_curr == "usd")
+				cout << "price in dollar : " << p.get_price() << "\t";
+			else if (this->invent_curr == "eur")
+				cout << "price in euro : " << p.get_price() << "\t";
+			else
+				cout << "price in pound : " << p.get_price() << "\t";
+			cout << endl;
+		}
+	}
 };
 
 int main()
