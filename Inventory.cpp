@@ -3,6 +3,8 @@
 #include<sstream>
 #include<fstream>
 #include <vector>
+#include <chrono>
+#include <ctime> 
 using namespace std;
 
 #define ar auto &
@@ -455,6 +457,30 @@ public:
 
 int main()
 {
-	
+	cout << "Welcome to Inventory Management program written by Kiarash Gilanian" << endl;
+	cout << "___________________________________________________________________" << endl << endl;
+
+	inventory invent;
+	users_record current_user;
+
+	cout << "Choose one of the following options by entering its number ( Some options require login or registration before doing. ) :" << endl;
+	cout << "0 : Exit . " << endl;
+	cout << "1 : Add a product to inventory. ( Requires login or registration )" << endl;
+	cout << "2 : Remove a product from inventory. ( Requires login or registration )" << endl;
+	cout << "3 : Find a product." << endl;
+	cout << "4 : Update a product. ( Requires login or registration )" << endl;
+	cout << "5 : View all products." << endl;
+	cout << "6 : Save inventory to file." << endl;
+	cout << "7 : Load Inventory from file. ( Requires login or registration )" << endl;
+	cout << "8 : Issue a factor. ( Requires login or registration )" << endl;
+	cout << "9 : Login." << endl;
+	cout << "10 : Register." << endl;
+	cout << "11 : Update base currency of inventory." << endl;
+	cout << "12 : Update exchange rate of currencies. ( Requires login or registration )" << endl;
+	cout << "13 : Logout." << endl;
+
+	int order_num;
+	cin >> order_num;
+
 	return 0;
 }
