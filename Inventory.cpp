@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include<sstream>
+#include<fstream>
+#include <vector>
 using namespace std;
 
 #define ar auto &
@@ -53,6 +55,90 @@ public:
 	double get_price()
 	{
 		return this->price;
+	}
+};
+
+class inventory
+{
+private:
+	vector <product> products;
+public:
+	string invent_curr = "usd";
+	double eur_to_usd = 1.09;
+	double gbp_to_usd = 1.27;
+	void update_currency(string new_currency)
+	{
+		for (ar x : new_currency)
+			x = tolower(x);
+
+		if (new_currency == "usd")
+		{
+			if (this->invent_curr == "usd")
+				cout << "the currency was successfully exchanged." << endl;
+			else if (this->invent_curr == "eur")
+			{
+				for (ar p : products)
+				{
+					p.set_price(p.get_price() * eur_to_usd);
+				}
+				cout << "the currency was successfully exchanged." << endl;
+			}
+			else if (this->invent_curr == "gbp")
+			{
+				for (ar p : products)
+				{
+					p.set_price(p.get_price() * gbp_to_usd);
+				}
+				cout << "the currency was successfully exchanged." << endl;
+			}
+			this->invent_curr = "usd";
+		}
+		else if (new_currency == "eur")
+		{
+			if (this->invent_curr == "eur")
+				cout << "the currency was successfully exchanged." << endl;
+			else if (this->invent_curr == "usd")
+			{
+				for (ar p : products)
+				{
+					p.set_price(p.get_price() / eur_to_usd);
+				}
+				cout << "the currency was successfully exchanged." << endl;
+			}
+			else if (this->invent_curr == "gbp")
+			{
+				for (ar p : products)
+				{
+					p.set_price(p.get_price() * gbp_to_usd / eur_to_usd);
+				}
+				cout << "the currency was successfully exchanged." << endl;
+			}
+			this->invent_curr = "eur";
+		}
+		else if (new_currency == "gbp")
+		{
+			if (this->invent_curr == "gbp")
+				cout << "the currency was successfully exchanged." << endl;
+			else if (this->invent_curr == "eur")
+			{
+				for (ar p : products)
+				{
+					p.set_price(p.get_price() / gbp_to_usd * eur_to_usd);
+				}
+				cout << "the currency was successfully exchanged." << endl;
+			}
+			else if (this->invent_curr == "usd")
+			{
+				for (ar p : products)
+				{
+					p.set_price(p.get_price() / gbp_to_usd);
+				}
+				cout << "the currency was successfully exchanged." << endl;
+			}
+			this->invent_curr = "gbp";
+		}
+		else
+			cout << "No currency was found with this name." << endl;
 	}
 };
 
