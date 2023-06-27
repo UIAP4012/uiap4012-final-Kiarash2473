@@ -212,6 +212,26 @@ public:
 			cout << "-----------------------------------------------------------" << endl;
 		}
 	}
+
+	void remove_product(int id)
+	{
+		bool found = false;
+		for (auto p = products.begin(); p != products.end(); p++)
+		{
+			if (p->get_id() == id)
+			{
+				products.erase(p);
+				found = true;
+				cout << "Product removed successfully." << endl;
+				cout << "-----------------------------------------------------------" << endl;
+				break;
+			}
+		}
+		if (found == false)
+		{
+			cout << "id is not exist" << endl;
+		}
+	}
 };
 
 int main()
