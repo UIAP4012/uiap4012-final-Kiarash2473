@@ -283,6 +283,18 @@ public:
 			cout << endl;
 		}
 	}
+
+	void save_inventory_in_file(string filename)
+	{
+		ofstream file;
+		file.open(filename, ios::out | ios::app);
+		for (int i = 0; i < products.size(); i++)
+		{
+			product p = products[i];
+			file << p.get_id() << "," << p.get_name() << "," << p.get_quantity() << "," << p.get_price() << endl;
+		}
+		file.close();
+	}
 };
 
 int main()
