@@ -343,6 +343,29 @@ class users_record
 {
 public:
 	bool is_logged = false;
+
+	void registration()
+	{
+		user_info k_user;
+		cout << "Enter username : ";
+		cin >> k_user.username;
+		cout << "Enter password : ";
+		cin >> k_user.password;
+
+		ofstream file;
+		file.open("registration.txt", ios::out | ios::app);
+		if (!file)
+		{
+			cout << "registration.txt can not open." << endl;
+		}
+		else
+		{
+			file << k_user.username << "," << k_user.password << endl;
+			file.close();
+			is_logged = true;
+			cout << "You are registered." << endl;
+		}
+	}
 };
 
 int main()
